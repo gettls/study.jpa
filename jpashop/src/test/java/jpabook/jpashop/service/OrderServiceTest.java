@@ -46,10 +46,10 @@ class OrderServiceTest {
 		
 		
 		
-//		assertEquals("»óÇ° ÁÖ¹®½Ã »óÅÂ´Â ORDER", OrderStatus.ORDER, getOrder.getStatus());
-//		assertEquals("ÁÖ¹®ÇÑ »óÇ° Á¾·ù ¼ö°¡ Á¤È®ÇØ¾ß ÇÔ", 1, getOrder.getOrderItems().size());
-//		assertEquals("ÁÖ¹® °¡°ÝÀº °¡°Ý * ¼ö·®ÀÌ´Ù", 10000 * orderCount, getOrder.getTotalPrice());
-//		assertEquals("ÁÖ¹®ÇÑ ¼ö·®¸¸Å­ Àç°í°¡ ÁÙ¾î¾ß ÇÑ´Ù", 8, book.getStockQuantity());
+//		assertEquals("ï¿½ï¿½Ç° ï¿½Ö¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½ ORDER", OrderStatus.ORDER, getOrder.getStatus());
+//		assertEquals("ï¿½Ö¹ï¿½ï¿½ï¿½ ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È®ï¿½Ø¾ï¿½ ï¿½ï¿½", 1, getOrder.getOrderItems().size());
+//		assertEquals("ï¿½Ö¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ * ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½", 10000 * orderCount, getOrder.getTotalPrice());
+//		assertEquals("ï¿½Ö¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å­ ï¿½ï¿½ï¿½ ï¿½Ù¾ï¿½ï¿½ ï¿½Ñ´ï¿½", 8, book.getStockQuantity());
 	}
 
 
@@ -86,8 +86,8 @@ class OrderServiceTest {
 		//then
 		Order getOrder = orderRepository.findOne(orderId);
 		
-//		assertEquals("ÁÖ¹® Ãë¼Ò½Ã »óÅÂ´Â CANCLE", OrderStatus.CANCEL, getOrder.getStatus());
-//		assertEquals("ÁÖ¹®ÀÌ Ãë¼ÒµÈ »óÇ°Àº ±×¸¸Å­ Àç°í°¡ Áõ°¡ÇØ¾ß ÇÑ´Ù", 10, item.getStockQuantity());
+//		assertEquals("ï¿½Ö¹ï¿½ ï¿½ï¿½Ò½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½ CANCLE", OrderStatus.CANCEL, getOrder.getStatus());
+//		assertEquals("ï¿½Ö¹ï¿½ï¿½ï¿½ ï¿½ï¿½Òµï¿½ ï¿½ï¿½Ç°ï¿½ï¿½ ï¿½×¸ï¿½Å­ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½", 10, item.getStockQuantity());
 	}
 	
 	private Book createItem(String name, int price, int cnt) {
@@ -101,8 +101,8 @@ class OrderServiceTest {
 
 	private Member createMember() {
 		Member member = new Member();
-		member.setName("È¸¿ø1");
-		member.setAddres(new Address("seoul", "river", "123-13"));
+		member.setName("È¸ï¿½ï¿½1");
+		member.setAddress(new Address("seoul", "river", "123-13"));
 		em.persist(member);
 		return member;
 	}

@@ -35,13 +35,13 @@ public class Item {
 	private List<Category> categories = new ArrayList<>();
 	
 	
-	//==ºñÁî´Ï½º ·ÎÁ÷==//
-	// Àç°í Áõ°¡
+	//==ï¿½ï¿½ï¿½ï¿½Ï½ï¿½ ï¿½ï¿½ï¿½ï¿½==//
+	// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public void addStock(int quantity) {
 		this.stockQuantity += quantity;
 	}
 	
-	// Àç°í °¨¼Ò
+	// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public void removeStock(int quantity) {
 		int restStock = this.stockQuantity - quantity;
 		if(restStock < 0) {

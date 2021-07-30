@@ -22,41 +22,41 @@ public class OrderService {
 	private final ItemRepository itemRepository;
 	private final MemberRepository memberRepository;
 	
-	// ÁÖ¹®
+	// ï¿½Ö¹ï¿½
 	@Transactional
 	public Long order(Long memberId, Long itemId, int count) {
 		
-		// ¿£Æ¼Æ¼ Á¶È¸
+		// ï¿½ï¿½Æ¼Æ¼ ï¿½ï¿½È¸
 		Member member = memberRepository.findOne(memberId);
 		Item item = itemRepository.findOne(itemId);
 		
-		// ¹è¼ÛÁ¤º¸ »ý¼º
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		Delivery delivery = new Delivery();
-		delivery.setAddress(member.getAddres());
+		delivery.setAddress(member.getAddress());
 		
-		// ÁÖ¹® »óÇ° »ý¼º
+		// ï¿½Ö¹ï¿½ ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½
 		OrderItem orderItem = OrderItem.createOrderItem(item, item.getPrice(), count);
 		
-		// ÁÖ¹® »ý¼º
+		// ï¿½Ö¹ï¿½ ï¿½ï¿½ï¿½ï¿½
 		Order order = Order.createOrder(member, delivery, orderItem);
 		
-		// ÁÖ¹® ÀúÀå
+		// ï¿½Ö¹ï¿½ ï¿½ï¿½ï¿½ï¿½
 		orderRepository.save(order);
 		
 		return order.getId();
 	}
 	
-	// Ãë¼Ò
+	// ï¿½ï¿½ï¿½
 	@Transactional
 	public void cancelOrder(Long orderId) {
-		// ÁÖ¹® ¿£Æ¼Æ¼ Á¶È¸
+		// ï¿½Ö¹ï¿½ ï¿½ï¿½Æ¼Æ¼ ï¿½ï¿½È¸
 		Order order = orderRepository.findOne(orderId);
-		// ÁÖ¹® Ãë¼Ò
+		// ï¿½Ö¹ï¿½ ï¿½ï¿½ï¿½
 		order.cancel();
 	}
 	
 	
-	// °Ë»ö
+	// ï¿½Ë»ï¿½
 //	public List<Order> findOrders(OrderSearch orderSearch){
 //		return orderRepository.findAll(orderSearch)
 //	}
