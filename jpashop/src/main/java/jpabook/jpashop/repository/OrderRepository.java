@@ -21,84 +21,87 @@ import jpabook.jpashop.domain.OrderSearch;
 @Repository
 public class OrderRepository {
 
-	private final EntityManager em;
+    private final EntityManager em;
 
-	public OrderRepository(EntityManager em) {
-		this.em = em;
-	}
+    public OrderRepository(EntityManager em) {
+        this.em = em;
+    }
 
-	public void save(Order order) {
-		em.persist(order);
-	}
+    public void save(Order order) {
+        em.persist(order);
+    }
 
-	public Order findOne(Long id) {
-		return em.find(Order.class, id);
-	}
+    public Order findOne(Long id) {
+        return em.find(Order.class, id);
+    }
 
-	public List<Order> findAllByString(OrderSearch orderSearch) {
+    public List<Order> findAllByString(OrderSearch orderSearch) {
 
-		String jpql = "select o from Order o join o.member m";
-		boolean isFirstCondition = true;
+            String jpql = "select o from Order o join o.member m";
+            boolean isFirstCondition = true;
 
-		// ÁÖ¹® »óÅÂ °Ë»ö
-		if (orderSearch.getOrderStatus() != null) {
-			if (isFirstCondition) {
-				jpql += " where";
-				isFirstCondition = false;
-			} else {
-				jpql += " and";
-			}
-			jpql += " o.status = :status";
-		}
+        //ì£¼ë¬¸ ìƒíƒœ ê²€ìƒ‰
+        if (orderSearch.getOrderStatus() != null) {
+            if (isFirstCondition) {
+                jpql += " where";
+                isFirstCondition = false;
+            } else {
+                jpql += " and";
+            }
+            jpql += " o.status = :status";
+        }
 
-		// È¸¿ø ÀÌ¸§ °Ë»ö
-		if (StringUtils.hasText(orderSearch.getMemberName())) {
-			if (isFirstCondition) {
-				jpql += " where";
-				isFirstCondition = false;
-			} else {
-				jpql += " and";
-			}
-			jpql += " m.name like :name";
-		}
+        //íšŒì› ì´ë¦„ ê²€ìƒ‰
+        if (StringUtils.hasText(orderSearch.getMemberName())) {
+            if (isFirstCondition) {
+                jpql += " where";
+                isFirstCondition = false;
+            } else {
+                jpql += " and";
+            }
+            jpql += " m.name like :name";
+        }
 
-		TypedQuery<Order> query = em.createQuery(jpql, Order.class).setMaxResults(1000);
+        TypedQuery<Order> query = em.createQuery(jpql, Order.class)
+                .setMaxResults(1000);
 
-		if (orderSearch.getOrderStatus() != null) {
-			query = query.setParameter("status", orderSearch.getOrderStatus());
-		}
-		if (StringUtils.hasText(orderSearch.getMemberName())) {
-			query = query.setParameter("name", orderSearch.getMemberName());
-		}
+        if (orderSearch.getOrderStatus() != null) {
+            query = query.setParameter("status", orderSearch.getOrderStatus());
+        }
+        if (StringUtils.hasText(orderSearch.getMemberName())) {
+            query = query.setParameter("name", orderSearch.getMemberName());
+        }
 
-		return query.getResultList();
-	}
+        return query.getResultList();
+    }
 
-	/**
-	 * JPA Criteria
-	 */
-	public List<Order> findAllByCriteria(OrderSearch orderSearch) {
-		CriteriaBuilder cb = em.getCriteriaBuilder();
-		CriteriaQuery<Order> cq = cb.createQuery(Order.class);
-		Root<Order> o = cq.from(Order.class);
-		Join<Object, Object> m = o.join("member", JoinType.INNER);
+    /**
+     * JPA Criteria
+     */
+    public List<Order> findAllByCriteria(OrderSearch orderSearch) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Order> cq = cb.createQuery(Order.class);
+        Root<Order> o = cq.from(Order.class);
+        Join<Object, Object> m = o.join("member", JoinType.INNER);
 
-		List<Predicate> criteria = new ArrayList<>();
+        List<Predicate> criteria = new ArrayList<>();
 
-		// ÁÖ¹® »óÅÂ °Ë»ö
-		if (orderSearch.getOrderStatus() != null) {
-			Predicate status = cb.equal(o.get("status"), orderSearch.getOrderStatus());
-			criteria.add(status);
-		}
-		// È¸¿ø ÀÌ¸§ °Ë»ö
-		if (StringUtils.hasText(orderSearch.getMemberName())) {
-			Predicate name = cb.like(m.<String>get("name"), "%" + orderSearch.getMemberName() + "%");
-			criteria.add(name);
-		}
+        //ì£¼ë¬¸ ìƒíƒœ ê²€ìƒ‰
+        if (orderSearch.getOrderStatus() != null) {
+            Predicate status = cb.equal(o.get("status"), orderSearch.getOrderStatus());
+            criteria.add(status);
+        }
+        //íšŒì› ì´ë¦„ ê²€ìƒ‰
+        if (StringUtils.hasText(orderSearch.getMemberName())) {
+            Predicate name =
+                    cb.like(m.<String>get("name"), "%" + orderSearch.getMemberName() + "%");
+            criteria.add(name);
+        }
 
-		cq.where(cb.and(criteria.toArray(new Predicate[criteria.size()])));
-		TypedQuery<Order> query = em.createQuery(cq).setMaxResults(1000);
-		return query.getResultList();
-	}
+        cq.where(cb.and(criteria.toArray(new Predicate[criteria.size()])));
+        TypedQuery<Order> query = em.createQuery(cq).setMaxResults(1000);
+        return query.getResultList();
+    }
 
 }
+
