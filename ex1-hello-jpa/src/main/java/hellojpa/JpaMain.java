@@ -15,9 +15,12 @@ public class JpaMain {
 		tx.begin();
 
 		try {
-			Member findMember = em.find(Member.class, 1L);
 			
-			findMember.setName("ddd");
+			Member mem1 = em.find(Member.class, 150L);
+			mem1.setName("XXXXX");
+			
+			System.out.println("==============");
+			
 			
 			tx.commit();
 		} catch (Exception e) {
