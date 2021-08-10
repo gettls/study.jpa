@@ -1,4 +1,4 @@
-package hellojpa;
+package jpa_ex.jpashop;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -15,9 +15,6 @@ public class JpaMain {
 		tx.begin();
 
 		try {
-			
-			
-			
 			tx.commit();
 		} catch (Exception e) {
 			tx.rollback();
@@ -27,4 +24,5 @@ public class JpaMain {
 
 		emf.close();
 	}
+
 }
